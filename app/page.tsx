@@ -1,27 +1,18 @@
-import PlanCard, { type PlanView } from "@/components/PlanCard";
+import type { PlanContent } from "@/components/PlanCard";
+import PricingTable from "@/components/PricingTable";
 
-// Placeholder content, nothing here is wired up yet.
-const PLANS: PlanView[] = [
-  {
-    name: "Pro",
-    blurb: "For small teams getting started.",
-    pricePerSeat: "$19.00",
-    seats: 1,
-    total: "$19.00",
-    subtotal: "$19.00",
-    features: ["1 to 50 seats", "Email support"],
-  },
-  {
-    name: "Team",
-    blurb: "For growing teams that want volume pricing.",
-    pricePerSeat: "$29.00",
-    seats: 3,
-    total: "$87.00",
-    subtotal: "$87.00",
-    features: ["3 to 50 seats", "5% off at 10 or more seats", "Priority support"],
-    featured: true,
-  },
-];
+const PRO: PlanContent = {
+  name: "Pro",
+  blurb: "For small teams getting started.",
+  features: ["1 to 50 seats", "Email support"],
+};
+
+const TEAM: PlanContent = {
+  name: "Team",
+  blurb: "For growing teams that want volume pricing.",
+  features: ["3 to 50 seats", "5% off at 10 or more seats", "Priority support"],
+  featured: true,
+};
 
 const on = "rounded-full px-5 py-1.5 text-sm font-medium transition-colors bg-foreground text-background";
 const off = "rounded-full px-5 py-1.5 text-sm font-medium transition-colors text-muted hover:text-foreground";
@@ -47,23 +38,9 @@ export default function Pricing() {
             </div>
           </div>
 
-          <div className="mx-auto mt-5 flex max-w-xs gap-2">
-            <input
-              className="min-w-0 flex-1 rounded-lg border border-line bg-panel px-3 py-2 text-sm outline-none focus:border-muted"
-              placeholder="Coupon code"
-            />
-            <button className="whitespace-nowrap rounded-full border border-line px-5 py-2 text-sm font-medium transition-colors hover:bg-chip">
-              Apply
-            </button>
-          </div>
-          <p className="mt-2 h-5 text-sm text-muted" />
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {PLANS.map((p) => (
-            <PlanCard key={p.name} plan={p} />
-          ))}
-        </div>
+        <PricingTable pro={PRO} team={TEAM} />
       </main>
     </>
   );
