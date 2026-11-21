@@ -1,0 +1,58 @@
+{
+  "cli_version": "0.13.4",
+  "checkpoint_id": "01M8063PQ1FSBKS5SPFZ8Y1318",
+  "session_id": "592c31ad-d010-4ba7-8b75-5add236ef78f",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-21T23:12:23.057384Z",
+  "branch": "feat/annual-volume",
+  "checkpoints_count": 11,
+  "save_step_count": 11,
+  "files_touched": [
+    "app/page.tsx",
+    "components/PlanCard.tsx",
+    "components/PricingCard.tsx",
+    "components/PricingTable.tsx",
+    "lib/pricing.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "cab6cd852d6a",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 104,
+    "cache_creation_tokens": 45528,
+    "cache_read_tokens": 1991265,
+    "output_tokens": 31312,
+    "api_call_count": 45
+  },
+  "session_token_usage": {
+    "input_tokens": 104,
+    "cache_creation_tokens": 45528,
+    "cache_read_tokens": 1991265,
+    "output_tokens": 31312,
+    "api_call_count": 45
+  },
+  "redaction": {
+    "replacements": 13,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 13,
+      "key_context": 0,
+      "pii": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    },
+    "pii": {
+      "EMAIL": 0,
+      "IP": 0,
+      "PHONE": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 11
+  }
+}
