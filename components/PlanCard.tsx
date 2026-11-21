@@ -5,6 +5,7 @@ export type PlanView = {
   seats: number;
   total: string;
   subtotal: string;
+  couponDiscount?: { label: string; amount: string };
   features: string[];
   featured?: boolean;
 };
@@ -13,7 +14,17 @@ const muted = "text-sm text-muted";
 const step =
   "flex h-9 w-9 items-center justify-center rounded-full border border-line text-lg transition-colors hover:bg-chip";
 
-export default function PlanCard({ plan }: { plan: PlanView }) {
+export type PlanContent = Pick<PlanView, "name" | "blurb" | "features" | "featured">;
+
+type Props = {
+  plan: PlanView;
+  onDecrease?: () => void;
+  onIncrease?: () => void;
+  canDecrease?: boolean;
+  canIncrease?: boolean;
+};
+
+export default function PlanCard({ plan, onDecrease, onIncrease, canDecrease = true, canIncrease = true }: Props) {
   return (
     <div className={`relative flex flex-col rounded-xl border bg-panel p-7 ${plan.featured ? "border-accent" : "border-line"}`}>
       {plan.featured && (
@@ -34,13 +45,23 @@ export default function PlanCard({ plan }: { plan: PlanView }) {
       <div className="mt-6 flex items-center justify-between border-t border-line pt-6">
         <span className={muted}>{plan.name} seats</span>
         <div className="flex items-center gap-3">
-          <button aria-label={`Decrease ${plan.name} seats`} className={step}>
+          <button
+            aria-label={`Decrease ${plan.name} seats`}
+            className={step}
+            onClick={onDecrease}
+            disabled={!canDecrease}
+          >
             −
           </button>
           <span aria-label={`${plan.name} seat count`} className="min-w-8 text-center text-2xl font-semibold tabular-nums">
             {plan.seats}
           </span>
-          <button aria-label={`Increase ${plan.name} seats`} className={step}>
+          <button
+            aria-label={`Increase ${plan.name} seats`}
+            className={step}
+            onClick={onIncrease}
+            disabled={!canIncrease}
+          >
             +
           </button>
         </div>
@@ -54,6 +75,11 @@ export default function PlanCard({ plan }: { plan: PlanView }) {
         </p>
         <div className={`mt-4 space-y-1 ${muted}`}>
           <p>Subtotal: {plan.subtotal}</p>
+          {plan.couponDiscount && (
+            <p>
+              Discount ({plan.couponDiscount.label}): -{plan.couponDiscount.amount}
+            </p>
+          )}
         </div>
       </div>
 
