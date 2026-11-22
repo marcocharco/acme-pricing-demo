@@ -1,10 +1,14 @@
+import type { BillingPeriod } from "@/lib/pricing";
+
 export type PlanView = {
   name: string;
   blurb: string;
   pricePerSeat: string;
   seats: number;
   total: string;
+  period: BillingPeriod;
   subtotal: string;
+  volumeDiscount?: { label: string; amount: string };
   couponDiscount?: { label: string; amount: string };
   features: string[];
   featured?: boolean;
@@ -20,11 +24,9 @@ type Props = {
   plan: PlanView;
   onDecrease?: () => void;
   onIncrease?: () => void;
-  canDecrease?: boolean;
-  canIncrease?: boolean;
 };
 
-export default function PlanCard({ plan, onDecrease, onIncrease, canDecrease = true, canIncrease = true }: Props) {
+export default function PlanCard({ plan, onDecrease, onIncrease }: Props) {
   return (
     <div className={`relative flex flex-col rounded-xl border bg-panel p-7 ${plan.featured ? "border-accent" : "border-line"}`}>
       {plan.featured && (
@@ -49,7 +51,6 @@ export default function PlanCard({ plan, onDecrease, onIncrease, canDecrease = t
             aria-label={`Decrease ${plan.name} seats`}
             className={step}
             onClick={onDecrease}
-            disabled={!canDecrease}
           >
             −
           </button>
@@ -60,7 +61,6 @@ export default function PlanCard({ plan, onDecrease, onIncrease, canDecrease = t
             aria-label={`Increase ${plan.name} seats`}
             className={step}
             onClick={onIncrease}
-            disabled={!canIncrease}
           >
             +
           </button>
@@ -71,10 +71,16 @@ export default function PlanCard({ plan, onDecrease, onIncrease, canDecrease = t
         <p>
           <span className={muted}>Total: </span>
           <span className="text-4xl font-semibold tracking-tight tabular-nums">{plan.total}</span>
-          <span className={muted}> per month</span>
+          <span className={muted}> per {plan.period === "annual" ? "year" : "month"}</span>
         </p>
+        {plan.period === "annual" && <p className={`mt-1 ${muted}`}>Billed {plan.total} yearly</p>}
         <div className={`mt-4 space-y-1 ${muted}`}>
           <p>Subtotal: {plan.subtotal}</p>
+          {plan.volumeDiscount && (
+            <p>
+              Volume discount ({plan.volumeDiscount.label}): -{plan.volumeDiscount.amount}
+            </p>
+          )}
           {plan.couponDiscount && (
             <p>
               Discount ({plan.couponDiscount.label}): -{plan.couponDiscount.amount}

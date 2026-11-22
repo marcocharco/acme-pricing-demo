@@ -14,9 +14,6 @@ const TEAM: PlanContent = {
   featured: true,
 };
 
-const on = "rounded-full px-5 py-1.5 text-sm font-medium transition-colors bg-foreground text-background";
-const off = "rounded-full px-5 py-1.5 text-sm font-medium transition-colors text-muted hover:text-foreground";
-
 export default function Pricing() {
   return (
     <>
@@ -28,16 +25,6 @@ export default function Pricing() {
         <div className="text-center">
           <h1 className="text-5xl font-semibold tracking-tight md:text-6xl">Pricing</h1>
           <p className="mx-auto mt-5 max-w-md text-lg text-muted">Pick a plan, add your seats, start a free trial.</p>
-
-          <div className="mt-8 flex justify-center">
-            <div className="relative inline-flex">
-              <div className="inline-flex rounded-full border border-line bg-panel p-1">
-                <button className={on}>Monthly</button>
-                <button className={off}>Annual</button>
-              </div>
-            </div>
-          </div>
-
         </div>
 
         <PricingTable pro={PRO} team={TEAM} />
